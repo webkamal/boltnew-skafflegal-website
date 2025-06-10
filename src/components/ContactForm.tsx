@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 interface FormData {
   name: string;
@@ -11,13 +12,33 @@ interface FormData {
 
 const ContactForm: React.FC = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
   
-  const onSubmit = (data: FormData) => {
-    console.log(data);
-    // Here you would typically send the form data to a server
-    // For demo purposes, we'll just reset the form
-    alert('Form submitted successfully!');
-    reset();
+  const onSubmit = async (data: FormData) => {
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch('https://formspree.io/f/manjqdwr', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      
+      if (response.ok) {
+        reset();
+        navigate('/thank-you');
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('There was an error submitting your form. Please try again or contact us directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -105,8 +126,12 @@ const ContactForm: React.FC = () => {
         )}
       </div>
 
-      <button type="submit" className="btn btn-primary w-full">
-        Send Message
+      <button 
+        type="submit" 
+        className="btn btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? 'Sending...' : 'Send Message'}
       </button>
     </form>
   );

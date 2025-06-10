@@ -47,7 +47,7 @@ const Header: React.FC = () => {
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
         <Link to="/" onClick={closeMenu}>
-          <Logo size={isScrolled ? 'small' : 'large'} />
+          <Logo size={isScrolled ? 'small' : 'large'} isScrolled={isScrolled} />
         </Link>
 
         {/* Desktop Navigation */}
