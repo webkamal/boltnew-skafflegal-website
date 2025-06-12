@@ -8,7 +8,7 @@ interface LogoProps {
 const Logo: React.FC<LogoProps> = ({ size = 'large', isScrolled = false }) => {
   const logoSrc = isScrolled 
     ? '/SkaffLegal-logo-sticky.png'
-    : 'https://www.skafflegal.com/wp-content/uploads/2023/05/SkaffLega-logo-main-2.png';
+    : '/SkaffLega-logo-main-2 (1).png';
 
   return (
     <div className="flex items-center">

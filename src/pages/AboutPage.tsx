@@ -86,7 +86,7 @@ const AboutPage: React.FC = () => {
               <div className="relative">
                 <div className="relative rounded-lg overflow-hidden shadow-xl">
                   <img
-                    src="https://www.skafflegal.com/wp-content/uploads/2023/05/Claudia-Skaff.jpg"
+                    src="/Claudia-Skaff.jpg"
                     alt="Claudia Skaff"
                     className="w-full h-auto object-cover"
                   />
